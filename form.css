@@ -1,0 +1,31 @@
+.contact-field {
+    display: flex;
+    align-items: center;
+    margin: .5rem 0;
+}
+
+.contact-field input {
+    display: inline-block;
+    width: 50rem;
+}
+
+.contact-field input,
+.contact-field textarea {
+    padding: .5rem;
+    
+}
+
+.contact-field-btns {
+    margin-left: 1.5rem;
+}
+
+.contact-field-btns *,
+.contact-btns * {
+    width: 9rem;
+    padding: .5rem;
+}
+
+.contact-field-btns button:first-child {
+    margin-right: .5rem;
+}
+
