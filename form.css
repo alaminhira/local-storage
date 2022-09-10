@@ -4,15 +4,10 @@
     margin: .5rem 0;
 }
 
-.contact-field input {
-    display: inline-block;
-    width: 50rem;
-}
-
 .contact-field input,
 .contact-field textarea {
+    width: 20rem;
     padding: .5rem;
-    
 }
 
 .contact-field-btns {
