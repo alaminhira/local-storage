@@ -12,12 +12,18 @@ const isContains = (el, cls) => {
     return el.classList.contains(cls);
 }
 
-const getInputValue = formBtn => {
+const getInputInfo = formBtn => {
     const input = formBtn.closest('.contact-field-btns').previousElementSibling;
     const inputValue = input.value;
+    const id = input.getAttribute('id');
+
     input.value = '';
 
-    return inputValue;
+    return {id, inputValue}
+}
+
+const saveToLocalStorage = (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value));
 }
 
 const initForm = (e) => {
@@ -29,8 +35,9 @@ const initForm = (e) => {
     if (!isContains(formBtn, 'form-btn')) return;
 
     if (isContains(formBtn, 'btn-send')) {
-        const value = getInputValue(formBtn);
-        console.log(value)
+        const value = getInputInfo(formBtn);
+        const { id, inputValue } = value;
+        saveToLocalStorage(id, inputValue);
 
     } else if (isContains(formBtn, 'btn-delete')) {
         console.log('delete')
