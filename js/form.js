@@ -12,18 +12,42 @@ const isContains = (el, cls) => {
     return el.classList.contains(cls);
 }
 
-const getInputInfo = formBtn => {
+const getInputValue = formBtn => {
     const input = formBtn.closest('.contact-field-btns').previousElementSibling;
     const inputValue = input.value;
-    const id = input.getAttribute('id');
 
     input.value = '';
 
-    return {id, inputValue}
+    return inputValue;
+}
+
+const getInputId = formBtn => {
+    const input = formBtn.closest('.contact-field-btns').previousElementSibling;
+    return input.id;
 }
 
 const saveToLocalStorage = (key, value) => {
     localStorage.setItem(key, JSON.stringify(value));
+}
+
+const sendToLocalStorage = formBtn => {
+    const value = getInputValue(formBtn);
+    const id = getInputId(formBtn);
+    saveToLocalStorage(id, value);
+}
+
+const removeFromLocalStorage = id => {
+    localStorage.removeItem(id);
+}
+
+const saveUserMessage = () => {
+    const inputs = document.querySelectorAll('.form-input');
+    const userInfo = {};
+    inputs.forEach(input => {
+        userInfo[input.id] = input.value;
+        input.value = '';
+    });
+    saveToLocalStorage('user_message', userInfo);
 }
 
 const initForm = (e) => {
@@ -31,22 +55,20 @@ const initForm = (e) => {
     e.preventDefault();
 
     const formBtn = e.target;
-    
+
     if (!isContains(formBtn, 'form-btn')) return;
 
     if (isContains(formBtn, 'btn-send')) {
-        const value = getInputInfo(formBtn);
-        const { id, inputValue } = value;
-        saveToLocalStorage(id, inputValue);
+        sendToLocalStorage(formBtn);
 
     } else if (isContains(formBtn, 'btn-delete')) {
-        console.log('delete')
-        
+        removeFromLocalStorage(getInputId(formBtn));
+
     } else if (isContains(formBtn, 'btn-send-all')) {
-        console.log('all')
-        
+        saveUserMessage();
+
     } else {
-        console.log('reset')
+        localStorage.clear();
     }
 }
 
